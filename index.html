@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coffee — Artisan Roasters</title>
+  <meta name="description" content="Fresh roasted specialty coffee, beans and espresso machines." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Navigation -->
+  <header class="nav" id="nav">
+    <a href="#" class="logo">Coffee</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#" class="active">Home</a>
+      <a href="#products">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero slider -->
+  <section class="hero" id="hero" aria-roledescription="carousel">
+    <div class="slides" id="slides"></div>
+    <div class="beans-layer" id="beansLayer" aria-hidden="true"></div>
+
+    <button class="arrow prev" id="prevBtn" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>
+    </button>
+    <button class="arrow next" id="nextBtn" aria-label="Next slide">
+      <svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
+    </button>
+    <div class="dots" id="dots"></div>
+    <div class="progress"><span id="progressBar"></span></div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <p class="eyebrow">Our Selection</p>
+    <h2>Quest Coffees</h2>
+    <div class="filters" id="filters">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="beans">Beans</button>
+      <button class="chip" data-filter="machines">Machines</button>
+      <button class="chip" data-filter="cups">Cups</button>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <div class="about-text">
+      <p class="eyebrow">Since 2012</p>
+      <h2>Roasted in small batches, delivered fresh.</h2>
+      <p>We source single-origin beans directly from farmers, roast them every morning, and ship within 24 hours so every cup tastes the way it should.</p>
+      <div class="stats">
+        <div><strong>24h</strong><span>Roast to ship</span></div>
+        <div><strong>18</strong><span>Origins</span></div>
+        <div><strong>50k+</strong><span>Happy customers</span></div>
+      </div>
+    </div>
+    <div class="about-visual" id="aboutVisual"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="contact">
+    <div>
+      <a href="#" class="logo">Coffee</a>
+      <p>Fresh roasted specialty coffee.</p>
+    </div>
+    <form class="newsletter" id="newsletter">
+      <label for="email">Get 10% off your first order</label>
+      <div>
+        <input id="email" type="email" placeholder="you@example.com" required />
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </div>
+    </form>
+    <p class="copyright">© <span id="year"></span> Coffee. All rights reserved.</p>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="drawer" aria-label="Shopping cart">
+    <div class="drawer-head">
+      <h3>Your Cart</h3>
+      <button class="icon-btn" id="closeDrawer" aria-label="Close cart">
+        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+    </div>
+    <ul class="cart-items" id="cartItems"></ul>
+    <div class="drawer-foot">
+      <div class="total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
+      <button class="btn btn-primary full">Checkout</button>
+    </div>
+  </aside>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/art.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
