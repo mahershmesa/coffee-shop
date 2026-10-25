@@ -34,6 +34,6 @@ npx serve .
 - **Products**: edit the `PRODUCTS` array in `js/main.js`.
 - **Photos**: paths are in the `IMG` object at the top of `js/main.js`. Use transparent PNGs.
   - `images/coffee-pouch.png`, `bean-sack.png`, `espresso-machine.png`, `espresso-shots.png`
-  - `images/coffee-cup.png` — not added yet; until it exists a drawn cup is shown instead.
+  - `images/coffee-cup.jpg` — full photo (not cut out), used as the "Rich Aroma" slide background via `bgImage`.
   - `images/beans/` — single beans used for the flying-bean animation.
 - **Video**: `videos/beans.mp4` plays behind the About section (`images/beans-poster.jpg` shows while it loads).

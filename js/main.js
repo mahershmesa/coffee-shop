@@ -4,7 +4,7 @@ const IMG = {
   sack: 'images/bean-sack.png',
   machine: 'images/espresso-machine.png',
   shots: 'images/espresso-shots.png',
-  cup: 'images/coffee-cup.png',
+  cup: 'images/coffee-cup.jpg',
 };
 const BEAN_IMAGES = 11; // images/beans/bean-1.png … bean-11.png
 
@@ -30,13 +30,13 @@ const SLIDES = [
   },
   {
     theme: 'dark',
-    bg: 'radial-gradient(120% 90% at 60% 50%, #d39a5f 0%, #a5672f 45%, #5c3417 100%)',
+    bg: '#0d1013',
+    bgImage: 'images/coffee-cup.jpg',
     tag: 'Rich Aroma',
     title: ['Rich', 'Aroma'],
-    ghost: 'RICH AROMA',
     text: 'A velvety crema and a scent that fills the room. Brewed from hand-picked Arabica.',
     primary: 'Shop Now', secondary: 'Explore',
-    visual: () => `<div class="v-cup float">${photo(IMG.cup, 'Cup of espresso', Art.cup())}</div>`,
+    visual: () => '',
     beans: 5,
   },
   {
@@ -79,7 +79,7 @@ const PRODUCTS = [
   { id: 1, cat: 'beans', name: 'Artisan Dark Roast', price: 18.5, note: 'Chocolate · Smoky · 250g', art: () => photo(IMG.pouch, 'Artisan Dark Roast') },
   { id: 2, cat: 'beans', name: 'Whole Bean Sack', price: 32, note: 'House blend · 1kg', art: () => photo(IMG.sack, 'Whole Bean Sack') },
   { id: 3, cat: 'machines', name: 'Sleek Pro Espresso', price: 649, note: 'Dual group · 15 bar', art: () => photo(IMG.machine, 'Sleek Pro Espresso') },
-  { id: 4, cat: 'cups', name: 'Classic Black Cup', price: 12, note: 'Cup & saucer · 90ml', art: () => photo(IMG.cup, 'Classic Black Cup', Art.cup({ steam: false })) },
+  { id: 4, cat: 'cups', name: 'Classic Black Cup', price: 12, note: 'Cup & saucer · 90ml', art: () => `<img class="art photo cover" src="${IMG.cup}" alt="Classic Black Cup">` },
   { id: 5, cat: 'cups', name: 'Espresso Shot Glasses', price: 14, note: 'Set of 2 · 60ml', art: () => photo(IMG.shots, 'Espresso Shot Glasses') },
 ];
 
@@ -121,6 +121,7 @@ function beansHTML(count) {
 function renderSlides() {
   slidesEl.innerHTML = SLIDES.map((s, i) => `
     <article class="slide theme-${s.theme}" style="background:${s.bg}" aria-label="Slide ${i + 1} of ${SLIDES.length}">
+      ${s.bgImage ? `<div class="slide-photo" style="background-image:url('${s.bgImage}')"></div>` : ''}
       ${s.ghost ? `<div class="ghost" aria-hidden="true">${s.ghost}</div>` : ''}
       <div class="slide-inner">
         <div class="copy">

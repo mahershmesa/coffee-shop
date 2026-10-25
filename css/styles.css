@@ -384,3 +384,23 @@ h2 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 46px); 
 }
 .card-art .fallback .art { width: 200px; max-width: 100%; max-height: none; }
 .mini-art .fallback .art { width: 44px; max-height: none; }
+
+/* Full-bleed photo slide */
+.slide-photo {
+  position: absolute; inset: 0 0 0 42%; z-index: 0;
+  background-size: cover; background-position: 50% 55%;
+  transform: scale(1.12); transition: transform 7s ease-out, filter 1s;
+  filter: blur(6px);
+}
+.slide-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, #0d1013 0%, rgba(13, 16, 19, .6) 22%, rgba(13, 16, 19, 0) 50%);
+}
+.slide.active .slide-photo { transform: scale(1); filter: none; }
+.card-art:has(.cover), .mini-art:has(.cover) { padding: 0; overflow: hidden; }
+.card-art .cover { width: 100%; height: 100%; max-height: none; object-fit: cover; filter: none; }
+.mini-art .cover { width: 100%; height: 100%; max-height: none; object-fit: cover; border-radius: 12px; }
+@media (max-width: 900px) {
+  .slide-photo { inset: 0; background-position: 60% 40%; }
+  .slide-photo::after { background: linear-gradient(0deg, rgba(13, 16, 19, .95) 0%, rgba(13, 16, 19, .7) 45%, rgba(13, 16, 19, .1) 80%); }
+}
