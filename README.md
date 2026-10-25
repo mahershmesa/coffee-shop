@@ -36,4 +36,4 @@ npx serve .
   - `images/coffee-pouch.png`, `bean-sack.png`, `espresso-machine.png`, `espresso-shots.png`
   - `images/coffee-cup.jpg` — full photo (not cut out), used as the "Rich Aroma" slide background via `bgImage`.
   - `images/beans/` — single beans used for the flying-bean animation.
-- **Video**: `videos/beans.mp4` plays behind the About section (`images/beans-poster.jpg` shows while it loads).
+- **Video**: `videos/beans.webm` / `.mp4` plays behind the first slide and the About section (`images/beans-poster.jpg` shows while it loads).

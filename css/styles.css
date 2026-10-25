@@ -404,3 +404,19 @@ h2 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 4vw, 46px); 
   .slide-photo { inset: 0; background-position: 60% 40%; }
   .slide-photo::after { background: linear-gradient(0deg, rgba(13, 16, 19, .95) 0%, rgba(13, 16, 19, .7) 45%, rgba(13, 16, 19, .1) 80%); }
 }
+
+/* ---------- Moving backgrounds ---------- */
+/* Video background (first slide) */
+.slide-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; filter: brightness(.6) saturate(1.1); transform: scale(1.05); }
+.slide-shade { position: absolute; inset: 0; z-index: 0; background: linear-gradient(90deg, rgba(18, 10, 6, .92) 0%, rgba(18, 10, 6, .65) 40%, rgba(18, 10, 6, .25) 100%); }
+@media (max-width: 900px) { .slide-shade { background: linear-gradient(0deg, rgba(18, 10, 6, .9) 0%, rgba(18, 10, 6, .55) 55%, rgba(18, 10, 6, .35) 100%); } }
+
+/* Gradient slides drift slowly */
+.slide { background-size: 160% 160% !important; animation: bgDrift 14s ease-in-out infinite alternate; }
+@keyframes bgDrift { from { background-position: 0% 30%; } to { background-position: 100% 70%; } }
+
+/* Opening: the hero zooms out of a dark fade when the page loads */
+.slides { animation: introZoom 2.4s cubic-bezier(.2, .7, .2, 1) both; }
+@keyframes introZoom { from { transform: scale(1.18); filter: brightness(0) blur(8px); } 40% { filter: brightness(.7) blur(2px); } to { transform: scale(1); filter: none; } }
+.nav { animation: navIn 1s .9s var(--ease) both; }
+@keyframes navIn { from { opacity: 0; transform: translateY(-20px); } }

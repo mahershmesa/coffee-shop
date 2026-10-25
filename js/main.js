@@ -16,7 +16,9 @@ const photo = (src, alt, fallback = '') => fallback
 const SLIDES = [
   {
     theme: 'dark',
-    bg: 'radial-gradient(120% 90% at 70% 50%, #4a2c1a 0%, #24150d 55%, #120a06 100%)',
+    bg: '#120a06',
+    bgVideo: 'videos/beans',
+    duration: 9000, // stay longer so the moving background is seen
     tag: 'Fresh Style Roast',
     title: ['Artisan', 'Roast'],
     text: 'Small-batch beans roasted every morning for a deep, chocolatey cup with a smooth finish.',
@@ -121,6 +123,7 @@ function beansHTML(count) {
 function renderSlides() {
   slidesEl.innerHTML = SLIDES.map((s, i) => `
     <article class="slide theme-${s.theme}" style="background:${s.bg}" aria-label="Slide ${i + 1} of ${SLIDES.length}">
+      ${s.bgVideo ? `<video class="slide-video" poster="images/beans-poster.jpg" autoplay muted loop playsinline aria-hidden="true"><source src="${s.bgVideo}.webm" type="video/webm"><source src="${s.bgVideo}.mp4" type="video/mp4"></video><div class="slide-shade"></div>` : ''}
       ${s.bgImage ? `<div class="slide-photo" style="background-image:url('${s.bgImage}')"></div>` : ''}
       ${s.ghost ? `<div class="ghost" aria-hidden="true">${s.ghost}</div>` : ''}
       <div class="slide-inner">
@@ -174,11 +177,12 @@ function restartTimer() {
   progressBar.style.transition = 'none';
   progressBar.style.width = '0%';
   if (reduceMotion) return;
+  const ms = SLIDES[current].duration || DURATION;
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    progressBar.style.transition = `width ${DURATION}ms linear`;
+    progressBar.style.transition = `width ${ms}ms linear`;
     progressBar.style.width = '100%';
   }));
-  timer = setTimeout(() => goTo(current + 1, 1), DURATION);
+  timer = setTimeout(() => goTo(current + 1, 1), ms);
 }
 
 function initSlider() {
