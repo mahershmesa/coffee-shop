@@ -205,6 +205,49 @@ const activeSlide = (p) => p.evaluate(() => [...document.querySelectorAll('.slid
   check('mobile: no errors', mProblems.length === 0, mProblems.join(' | '));
   await m.close();
 
+  /* ---------- Layout on real device sizes ---------- */
+  const DEVICES = [
+    ['small phone', 320, 568], ['iPhone SE', 375, 667], ['iPhone', 390, 844], ['iPhone Pro Max', 430, 932],
+    ['phone landscape', 844, 390], ['iPad mini', 768, 1024], ['iPad Air', 820, 1180],
+    ['iPad landscape', 1024, 768], ['iPad Pro', 1024, 1366], ['laptop', 1366, 768], ['desktop', 1920, 1080],
+  ];
+  for (const [name, width, height] of DEVICES) {
+    const touch = width < 1300;
+    const dc = await browser.newContext({ viewport: { width, height }, hasTouch: touch, isMobile: touch && width < 1000 });
+    const dp = await dc.newPage();
+    await dp.goto(URL_ROOT, { waitUntil: 'load' });
+    await dp.waitForTimeout(2600);
+    const issues = [];
+    for (let i = 0; i < 5; i++) {
+      if (i) { await dp.evaluate((n) => document.querySelectorAll('.dot')[n].click(), i); await dp.waitForTimeout(1500); }
+      issues.push(...await dp.evaluate((n) => {
+        const R = (el) => el.getBoundingClientRect();
+        const slide = document.querySelector('.slide.active');
+        const cw = document.documentElement.clientWidth;
+        const nav = R(document.querySelector('#nav'));
+        const copy = R(slide.querySelector('.copy'));
+        const cta = R(slide.querySelector('.cta'));
+        const dots = R(document.querySelector('.dots'));
+        const vis = slide.querySelector('.visual > div');
+        const out = [];
+        if (document.documentElement.scrollWidth > cw || window.innerWidth > cw) out.push('page wider than screen');
+        if (R(document.querySelector('#cartBtn')).right > cw) out.push('cart icon off screen');
+        if (copy.top < nav.bottom - 2) out.push('text under top bar');
+        if (cta.bottom > dots.top) out.push('buttons overlap dots');
+        if (vis) {
+          const v = R(vis);
+          const ox = Math.min(v.right, copy.right) - Math.max(v.left, copy.left);
+          const oy = Math.min(v.bottom, copy.bottom) - Math.max(v.top, copy.top);
+          if (ox > 30 && oy > 30) out.push('image overlaps text');
+          if (v.top < nav.bottom - 10) out.push('image under top bar');
+        }
+        return out.map((x) => `slide ${n + 1}: ${x}`);
+      }, i));
+    }
+    check(`layout fits on ${name} (${width}x${height})`, issues.length === 0, issues.join(', '));
+    await dc.close();
+  }
+
   await browser.close();
   console.log(results.join('\n'));
   const failed = results.filter((x) => x.startsWith('FAIL')).length;

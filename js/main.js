@@ -265,7 +265,12 @@
   // True when a keyboard user is focused on something inside the slider
   const keyboardFocusInHero = () => {
     const el = document.activeElement;
-    return hero.contains(el) && el.matches(':focus-visible');
+    if (!hero.contains(el)) return false;
+    try {
+      return el.matches(':focus-visible');
+    } catch {
+      return false; // Safari < 15.4 does not know :focus-visible
+    }
   };
 
   function startTimer() {
