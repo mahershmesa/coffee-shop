@@ -1,0 +1,17 @@
+{
+  "name": "coffee-shop",
+  "private": true,
+  "description": "Coffee shop landing page with an animated hero slider. Plain HTML, CSS and JavaScript.",
+  "scripts": {
+    "start": "npx --yes serve@14.2.4 .",
+    "lint": "eslint js tests && html-validate index.html",
+    "test": "npm run lint && node tests/site.test.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "eslint": "9.39.5",
+    "globals": "15.11.0",
+    "html-validate": "8.24.2",
+    "playwright": "1.56.1"
+  }
+}

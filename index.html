@@ -1,122 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="theme-color" content="#120a06">
   <title>Coffee — Artisan Roasters</title>
-  <meta name="description" content="Fresh roasted specialty coffee, beans and espresso machines." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <meta name="description" content="Fresh roasted specialty coffee, beans and espresso machines.">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
-  <!-- Navigation -->
+  <a class="skip-link" href="#products">Skip to products</a>
+
   <header class="nav" id="nav">
-    <a href="#" class="logo">Coffee</a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#" class="active">Home</a>
+    <a href="#top" class="logo">Coffee</a>
+    <nav class="nav-links" id="navLinks" aria-label="Main">
+      <a href="#top" class="active">Home</a>
       <a href="#products">Shop</a>
       <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <button class="icon-btn" aria-label="Search">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      </button>
-      <button class="icon-btn cart-btn" id="cartBtn" aria-label="Cart">
-        <svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      <button type="button" class="icon-btn cart-btn" id="cartBtn" aria-label="Open cart" aria-controls="drawer" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z" /><path d="M9 7a3 3 0 0 1 6 0" /></svg>
         <span class="cart-count" id="cartCount">0</span>
       </button>
-      <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">
-        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <button type="button" class="icon-btn menu-btn" id="menuBtn" aria-label="Menu" aria-controls="navLinks" aria-expanded="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
       </button>
     </div>
   </header>
 
-  <!-- Hero slider -->
-  <section class="hero" id="hero" aria-roledescription="carousel">
-    <div class="slides" id="slides"></div>
-    <div class="beans-layer" id="beansLayer" aria-hidden="true"></div>
+  <main>
+    <h1 class="sr-only">Coffee — Artisan Roasters</h1>
 
-    <button class="arrow prev" id="prevBtn" aria-label="Previous slide">
-      <svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg>
-    </button>
-    <button class="arrow next" id="nextBtn" aria-label="Next slide">
-      <svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg>
-    </button>
-    <div class="dots" id="dots"></div>
-    <div class="progress"><span id="progressBar"></span></div>
-  </section>
+    <section class="hero" id="top" aria-roledescription="carousel" aria-label="Featured">
+      <div class="slides" id="slides"></div>
+      <button type="button" class="arrow prev" id="prevBtn" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7" /></svg>
+      </button>
+      <button type="button" class="arrow next" id="nextBtn" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>
+      </button>
+      <div class="dots" id="dots"></div>
+      <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+    </section>
 
-  <!-- Products -->
-  <section class="products" id="products">
-    <p class="eyebrow">Our Selection</p>
-    <h2>Quest Coffees</h2>
-    <div class="filters" id="filters">
-      <button class="chip active" data-filter="all">All</button>
-      <button class="chip" data-filter="beans">Beans</button>
-      <button class="chip" data-filter="machines">Machines</button>
-      <button class="chip" data-filter="cups">Cups</button>
-    </div>
-    <div class="grid" id="productGrid"></div>
-  </section>
-
-  <!-- About -->
-  <section class="about" id="about">
-    <video class="about-video" autoplay muted loop playsinline preload="metadata" poster="images/beans-poster.jpg" aria-hidden="true">
-      <source src="videos/beans.webm" type="video/webm" />
-      <source src="videos/beans.mp4" type="video/mp4" />
-    </video>
-    <div class="about-overlay"></div>
-    <div class="about-text">
-      <p class="eyebrow">Since 2012</p>
-      <h2>Roasted in small batches, delivered fresh.</h2>
-      <p>We source single-origin beans directly from farmers, roast them every morning, and ship within 24 hours so every cup tastes the way it should.</p>
-      <div class="stats">
-        <div><strong>24h</strong><span>Roast to ship</span></div>
-        <div><strong>18</strong><span>Origins</span></div>
-        <div><strong>50k+</strong><span>Happy customers</span></div>
+    <section class="products" id="products" aria-labelledby="productsTitle">
+      <p class="eyebrow">Our Selection</p>
+      <h2 id="productsTitle">Quest Coffees</h2>
+      <div class="filters" id="filters" role="group" aria-label="Filter products">
+        <button type="button" class="chip active" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-filter="beans" aria-pressed="false">Beans</button>
+        <button type="button" class="chip" data-filter="machines" aria-pressed="false">Machines</button>
+        <button type="button" class="chip" data-filter="cups" aria-pressed="false">Cups</button>
       </div>
-    </div>
-    <div class="about-visual" id="aboutVisual"></div>
-  </section>
+      <div class="grid" id="productGrid"></div>
+    </section>
 
-  <!-- Footer -->
+    <section class="about" id="about" aria-labelledby="aboutTitle">
+      <video class="about-video" id="aboutVideo" muted loop playsinline preload="none" poster="images/beans-poster.webp" aria-hidden="true">
+        <source src="videos/beans.webm" type="video/webm">
+        <source src="videos/beans.mp4" type="video/mp4">
+      </video>
+      <div class="about-text">
+        <p class="eyebrow">Since 2012</p>
+        <h2 id="aboutTitle">Roasted in small batches, delivered fresh.</h2>
+        <p>We source single-origin beans directly from farmers, roast them every morning, and ship within 24 hours so every cup tastes the way it should.</p>
+        <div class="stats">
+          <div><strong>24h</strong><span>Roast to ship</span></div>
+          <div><strong>18</strong><span>Origins</span></div>
+          <div><strong>50k+</strong><span>Happy customers</span></div>
+        </div>
+      </div>
+      <div class="about-visual" aria-hidden="true">
+        <img class="about-shots" src="images/espresso-shots.webp" alt="" width="397" height="629" loading="lazy" decoding="async">
+        <img class="about-pouch" src="images/coffee-pouch.webp" alt="" width="408" height="612" loading="lazy" decoding="async">
+      </div>
+    </section>
+  </main>
+
   <footer class="footer" id="contact">
     <div>
-      <a href="#" class="logo">Coffee</a>
+      <a href="#top" class="logo">Coffee</a>
       <p>Fresh roasted specialty coffee.</p>
     </div>
-    <form class="newsletter" id="newsletter">
+    <form class="newsletter" id="newsletter" novalidate>
       <label for="email">Get 10% off your first order</label>
-      <div>
-        <input id="email" type="email" placeholder="you@example.com" required />
-        <button class="btn btn-primary" type="submit">Subscribe</button>
+      <div class="newsletter-row">
+        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
       </div>
     </form>
-    <p class="copyright">© <span id="year"></span> Coffee. All rights reserved.</p>
+    <p class="copyright">© <span id="year">2026</span> Coffee. All rights reserved.</p>
   </footer>
 
-  <!-- Cart drawer -->
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
-  <aside class="drawer" id="drawer" aria-label="Shopping cart">
+  <aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" inert>
     <div class="drawer-head">
-      <h3>Your Cart</h3>
-      <button class="icon-btn" id="closeDrawer" aria-label="Close cart">
-        <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      <h2 id="drawerTitle">Your Cart</h2>
+      <button type="button" class="icon-btn" id="closeDrawer" aria-label="Close cart">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
       </button>
     </div>
     <ul class="cart-items" id="cartItems"></ul>
     <div class="drawer-foot">
       <div class="total"><span>Total</span><strong id="cartTotal">$0.00</strong></div>
-      <button class="btn btn-primary full">Checkout</button>
+      <button type="button" class="btn btn-primary full" id="checkoutBtn">Checkout</button>
     </div>
   </aside>
 
-  <div class="toast" id="toast"></div>
-
-  <script src="js/art.js"></script>
-  <script src="js/main.js"></script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
