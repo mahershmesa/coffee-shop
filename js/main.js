@@ -1,4 +1,18 @@
 /* ---------- Data ---------- */
+const IMG = {
+  pouch: 'images/coffee-pouch.png',
+  sack: 'images/bean-sack.png',
+  machine: 'images/espresso-machine.png',
+  shots: 'images/espresso-shots.png',
+  cup: 'images/coffee-cup.png',
+};
+const BEAN_IMAGES = 11; // images/beans/bean-1.png … bean-11.png
+
+// Product photo. If a fallback is given, it shows when the image file is missing.
+const photo = (src, alt, fallback = '') => fallback
+  ? `<span class="ph"><img class="art photo" src="${src}" alt="${alt}" onerror="this.remove()"><span class="fallback">${fallback}</span></span>`
+  : `<img class="art photo" src="${src}" alt="${alt}">`;
+
 const SLIDES = [
   {
     theme: 'dark',
@@ -8,9 +22,9 @@ const SLIDES = [
     text: 'Small-batch beans roasted every morning for a deep, chocolatey cup with a smooth finish.',
     primary: 'Shop Now', secondary: 'Our Story',
     visual: () => `
-      <div class="v-bags">
-        <div class="v-bag back">${Art.bag({ body: '#d9c3a3', label: '#1f1611', text: '#e9d8bf', name: 'ORIGIN', sub: 'Medium Roast' })}</div>
-        <div class="v-bag front">${Art.bag({ body: '#1d1410', label: '#c89b6d', name: 'ARTISAN', sub: 'Dark Roast' })}</div>
+      <div class="v-combo">
+        <div class="v-pouch">${photo(IMG.pouch, 'Artisan coffee pouch')}</div>
+        <div class="v-sack">${photo(IMG.sack, 'Sack of roasted coffee beans')}</div>
       </div>`,
     beans: 6,
   },
@@ -22,8 +36,8 @@ const SLIDES = [
     ghost: 'RICH AROMA',
     text: 'A velvety crema and a scent that fills the room. Brewed from hand-picked Arabica.',
     primary: 'Shop Now', secondary: 'Explore',
-    visual: () => `<div class="v-cup float">${Art.cup()}</div>`,
-    beans: 4,
+    visual: () => `<div class="v-cup float">${photo(IMG.cup, 'Cup of espresso', Art.cup())}</div>`,
+    beans: 5,
   },
   {
     theme: 'light',
@@ -35,7 +49,7 @@ const SLIDES = [
     primary: 'Shop Now', secondary: 'Taste Notes',
     visual: () => `
       <div class="v-streaks"></div>
-      <div class="v-bag solo float">${Art.bag({ body: '#2b1a10', label: '#e7c48d', name: 'BOLD', sub: 'Espresso Blend' })}</div>`,
+      <div class="v-pouch solo float">${photo(IMG.pouch, 'Bold blend coffee pouch')}</div>`,
     beans: 14,
   },
   {
@@ -45,7 +59,7 @@ const SLIDES = [
     title: ['Sleek', 'Espresso'],
     text: 'Barista-grade espresso machines with dual boilers and precise pressure control.',
     primary: 'Shop Machines', secondary: 'Compare',
-    visual: () => `<div class="v-machine">${Art.machine()}</div>`,
+    visual: () => `<div class="v-machine">${photo(IMG.machine, 'Commercial espresso machine')}</div>`,
     beans: 0,
   },
   {
@@ -56,18 +70,17 @@ const SLIDES = [
     ghost: 'ORDER FRESH',
     text: 'Roasted today, at your door tomorrow. Free shipping on orders over $40.',
     primary: 'Shop Now', secondary: 'Subscribe',
-    visual: () => `<div class="v-cup float">${Art.cup({ steam: true })}</div>`,
+    visual: () => `<div class="v-shots float">${photo(IMG.shots, 'Espresso pouring into two glasses')}</div>`,
     beans: 10,
   },
 ];
 
 const PRODUCTS = [
-  { id: 1, cat: 'beans', name: 'Artisan Dark Roast', price: 18.5, note: 'Chocolate · Smoky', art: () => Art.bag({ body: '#1d1410', label: '#c89b6d', name: 'ARTISAN', sub: 'Dark Roast' }) },
-  { id: 2, cat: 'beans', name: 'Origin Medium Roast', price: 16, note: 'Caramel · Nutty', art: () => Art.bag({ body: '#d9c3a3', label: '#1f1611', text: '#e9d8bf', name: 'ORIGIN', sub: 'Medium Roast' }) },
-  { id: 3, cat: 'beans', name: 'Bold Espresso Blend', price: 19.9, note: 'Cocoa · Bright', art: () => Art.bag({ body: '#2b1a10', label: '#e7c48d', name: 'BOLD', sub: 'Espresso Blend' }) },
-  { id: 4, cat: 'machines', name: 'Sleek Pro Espresso', price: 649, note: 'Dual boiler · 15 bar', art: () => Art.machine() },
-  { id: 5, cat: 'cups', name: 'Classic Ceramic Cup', price: 12, note: 'Set of 2 · 240ml', art: () => Art.cup({ steam: false }) },
-  { id: 6, cat: 'beans', name: 'Ethiopia Light Roast', price: 21, note: 'Floral · Citrus', art: () => Art.bag({ body: '#8a4b2a', label: '#f6e7cf', name: 'ETHIOPIA', sub: 'Light Roast' }) },
+  { id: 1, cat: 'beans', name: 'Artisan Dark Roast', price: 18.5, note: 'Chocolate · Smoky · 250g', art: () => photo(IMG.pouch, 'Artisan Dark Roast') },
+  { id: 2, cat: 'beans', name: 'Whole Bean Sack', price: 32, note: 'House blend · 1kg', art: () => photo(IMG.sack, 'Whole Bean Sack') },
+  { id: 3, cat: 'machines', name: 'Sleek Pro Espresso', price: 649, note: 'Dual group · 15 bar', art: () => photo(IMG.machine, 'Sleek Pro Espresso') },
+  { id: 4, cat: 'cups', name: 'Classic Black Cup', price: 12, note: 'Cup & saucer · 90ml', art: () => photo(IMG.cup, 'Classic Black Cup', Art.cup({ steam: false })) },
+  { id: 5, cat: 'cups', name: 'Espresso Shot Glasses', price: 14, note: 'Set of 2 · 60ml', art: () => photo(IMG.shots, 'Espresso Shot Glasses') },
 ];
 
 /* ---------- Helpers ---------- */
@@ -100,7 +113,7 @@ function beansHTML(count) {
       `--f:${rand(3, 6).toFixed(1)}s`,
       `--blur:${Math.random() < 0.3 ? 2 : 0}px`,
     ].join(';');
-    out += `<span class="bean" style="${style}">${Art.bean()}</span>`;
+    out += `<span class="bean" style="${style}"><img src="images/beans/bean-${1 + Math.floor(Math.random() * BEAN_IMAGES)}.png" alt=""></span>`;
   }
   return out;
 }
@@ -313,7 +326,7 @@ $('#newsletter').addEventListener('submit', (e) => {
 });
 
 $('#year').textContent = new Date().getFullYear();
-$('#aboutVisual').innerHTML = `<div class="v-cup">${Art.cup()}</div><div class="about-bag">${Art.bag()}</div>`;
+$('#aboutVisual').innerHTML = `<div class="v-shots">${photo(IMG.shots, 'Espresso shots')}</div><div class="about-bag">${photo(IMG.pouch, 'Coffee pouch')}</div>`;
 
 // Reveal sections on scroll
 const io = new IntersectionObserver((entries) => {
